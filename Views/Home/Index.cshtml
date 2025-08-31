@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Fisherman – Phishing Detection";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-3 fw-bold">🛡️ Fisherman</h1>
+        <p class="lead text-muted">Detect phishing emails instantly with AI-powered analysis</p>
+    </div>
+
+    <!-- Card for form -->
+    <div class="card shadow-lg border-0 rounded-4 p-4 mx-auto" style="max-width: 700px;">
+        <h4 class="fw-semibold mb-4">✉️ Analyze an Email</h4>
+
+        <form id="phishingForm" method="post" action="/submit">
+            <div class="mb-3">
+                <label for="emailSubject" class="form-label fw-semibold">📧 Email Subject</label>
+                <input type="text" id="emailSubject" name="subject" class="form-control form-control-lg" placeholder="e.g., Urgent: Verify Your Account Now!" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="emailBody" class="form-label fw-semibold">📝 Email Body</label>
+                <textarea id="emailBody" name="body" rows="6" class="form-control form-control-lg" placeholder="Paste the email content here..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill position-relative" id="analyzeBtn">
+                <span id="btnText">🔍 Analyze Email</span>
+                <div class="spinner-border spinner-border-sm text-light ms-2" role="status" id="loading" style="display: none;"></div>
+            </button>
+        </form>
+
+        <!-- Results box -->
+        <div id="results" class="alert mt-4 d-none text-center fw-semibold"></div>
+    </div>
+
+    <!-- Tips Section -->
+    <div class="mt-5">
+        <h3 class="fw-bold mb-3">💡 Phishing Detection Tips</h3>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="tip-card p-3 shadow-sm rounded-3 h-100">
+                    <strong>✔ Check the sender</strong>
+                    <p class="text-muted mb-0">Verify the email address matches the supposed organization.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="tip-card p-3 shadow-sm rounded-3 h-100">
+                    <strong>⚡ Look for urgency</strong>
+                    <p class="text-muted mb-0">Phishing emails often try to create false urgency.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="tip-card p-3 shadow-sm rounded-3 h-100">
+                    <strong>🔗 Hover over links</strong>
+                    <p class="text-muted mb-0">Check if URLs actually match the legitimate website.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="tip-card p-3 shadow-sm rounded-3 h-100">
+                    <strong>🔒 Requests for sensitive info</strong>
+                    <p class="text-muted mb-0">Banks and services rarely ask for passwords via email.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    document.getElementById("phishingForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        // Show loading spinner
+        document.getElementById("btnText").innerText = "Analyzing...";
+        document.getElementById("loading").style.display = "inline-block";
+
+        try {
+            const response = await fetch("http://localhost:5213/submit", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+
+            const resultDiv = document.getElementById("results");
+            resultDiv.classList.remove("d-none", "alert-success", "alert-danger");
+            resultDiv.classList.add(data.message.includes("safe") ? "alert-success" : "alert-danger");
+            resultDiv.innerText = data.message;
+        } catch (err) {
+            const resultDiv = document.getElementById("results");
+            resultDiv.classList.remove("d-none", "alert-success");
+            resultDiv.classList.add("alert-danger");
+            resultDiv.innerText = "⚠️ Error: Could not connect to the server.";
+        } finally {
+            // Reset button
+            document.getElementById("btnText").innerText = "🔍 Analyze Email";
+            document.getElementById("loading").style.display = "none";
+        }
+    });
+</script>
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        min-height: 100vh;
+    }
+    .card {
+        background: #fff;
+    }
+    .tip-card {
+        background: #f9fafb;
+        transition: transform 0.2s;
+    }
+    .tip-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+</style>

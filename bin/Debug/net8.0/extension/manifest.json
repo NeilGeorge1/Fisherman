@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "Email Phishing Checker",
+    "version": "1.0",
+    "description": "Checks if an email is phishing using your Minimal API.",
+    "permissions": ["activeTab"],
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+      }
+    }
+  }
+  

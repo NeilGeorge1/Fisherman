@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "p4DgVIEuseachanttL8aLBz/0N+NI/+dwV3SdEpxren2MyOjP83xtFvSzLHgnj9Q4CWv+ftUw2HGeg6cgcgSAQ==",
+  "success": true,
+  "projectFilePath": "/home/neil/Projects/Fisherman/ArchiveIndex.csproj",
+  "expectedPackageFiles": [
+    "/home/neil/.nuget/packages/microsoft.ml.onnxruntime/1.22.1/microsoft.ml.onnxruntime.1.22.1.nupkg.sha512",
+    "/home/neil/.nuget/packages/microsoft.ml.onnxruntime.managed/1.22.1/microsoft.ml.onnxruntime.managed.1.22.1.nupkg.sha512",
+    "/home/neil/.nuget/packages/system.memory/4.5.5/system.memory.4.5.5.nupkg.sha512",
+    "/home/neil/.nuget/packages/system.numerics.tensors/9.0.0/system.numerics.tensors.9.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -10,4 +10,9 @@
     <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.22.1" />
   </ItemGroup>
 
+  <ItemGroup>
+  <None Include="vectorizer.onnx" CopyToOutputDirectory="Always" />
+  <None Include="catboost_model.onnx" CopyToOutputDirectory="Always" />
+</ItemGroup>
+
 </Project>
